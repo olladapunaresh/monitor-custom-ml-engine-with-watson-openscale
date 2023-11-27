@@ -11,7 +11,7 @@ import os, socket
 app = Flask(__name__)
 
 
-@app.route('/score', methods=['GET'])
+@app.route('/score', methods=['POST'])
 def wml_online():
     data = request.json  # Expecting data in JSON format
 
