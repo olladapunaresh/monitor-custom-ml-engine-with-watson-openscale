@@ -6,6 +6,7 @@ import hex.genmodel.MojoModel;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        args=new String[]{"68","2","2","0","6"};
         String result = getPrediction(args);
         System.out.println(result);
     }
