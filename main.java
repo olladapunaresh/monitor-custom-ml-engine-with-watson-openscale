@@ -4,7 +4,7 @@ import hex.genmodel.easy.EasyPredictModelWrapper;
 import hex.genmodel.easy.prediction.*;
 import hex.genmodel.MojoModel;
 
-public class Main {
+public class main {
     public static void main(String[] args) throws Exception {
         args=new String[]{"68","2","2","0","6"};
         String result = getPrediction(args);

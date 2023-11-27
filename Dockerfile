@@ -6,6 +6,6 @@ COPY h2o-genmodel.jar /workspace
 
 WORKDIR /workspace
 
-RUN javac -cp .:h2o-genmodel.jar Main.java 
+RUN javac -cp .:h2o-genmodel.jar main.java 
 
-CMD ["java","-cp",".:h2o-genmodel.jar", "Main"]
+CMD ["java","-cp",".:h2o-genmodel.jar", "main"]
