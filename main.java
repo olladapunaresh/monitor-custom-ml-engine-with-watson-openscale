@@ -1,19 +1,19 @@
 import java.io.*;
-        import hex.genmodel.easy.RowData;
-        import hex.genmodel.easy.EasyPredictModelWrapper;
-        import hex.genmodel.easy.prediction.*;
-        import hex.genmodel.MojoModel;
+import hex.genmodel.easy.RowData;
+import hex.genmodel.easy.EasyPredictModelWrapper;
+import hex.genmodel.easy.prediction.*;
+import hex.genmodel.MojoModel;
 
-        public class main {
-          public static void main(String[] args) throws Exception {
+public class main {
+      public static void main(String[] args) throws Exception {
             EasyPredictModelWrapper model = new EasyPredictModelWrapper(MojoModel.load("GBM_model_python_1701049837667_1.zip"));
 
             RowData row = new RowData();
-            row.put("AGE", "68");
-            row.put("RACE", "2");
-            row.put("DCAPS", "2");
-            row.put("VOL", "0");
-            row.put("GLEASON", "6");
+            row.put("AGE", args[0]);
+            row.put("RACE", args[1]);
+            row.put("DCAPS", args[2]);
+            row.put("VOL", args[3]);
+            row.put("GLEASON", args[4]);
 
             BinomialModelPrediction p = model.predictBinomial(row);
             System.out.println("Has penetrated the prostatic capsule (1=yes; 0=no): " + p.label);
@@ -26,4 +26,5 @@ import java.io.*;
             }
             System.out.println("");
           }
-        }
+      }
+
