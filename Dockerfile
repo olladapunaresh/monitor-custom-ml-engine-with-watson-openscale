@@ -1,21 +1,9 @@
-FROM python:3.10.8-slim-buster
+FROM openjdk:8-jdk-alpine
 
-RUN python -m pip install gunicorn flask numpy pandas requests joblib==0.11  ibm_watson_machine_learning==1.0.253 ibm-watson-openscale==3.0.24
-
-# Install OpenJDK-11
-RUN apt-get update && \
-    apt-get install -y openjdk-11-jre-headless && \
-    apt-get clean;
-
-
-# Define environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
-ENV PATH $JAVA_HOME/bin:$PATH
-
-EXPOSE 8080
+COPY . /workspace
 
 WORKDIR /workspace
 
-COPY app.py /workspace
+RUN javac -cp .:h2o-genmodel.jar main.java 
 
-CMD ["python", "app.py"]
+CMD ["java","-cp",".:h2o-genmodel.jar", "main"]
