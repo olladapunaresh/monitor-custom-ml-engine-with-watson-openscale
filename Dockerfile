@@ -2,8 +2,10 @@ FROM python:3.10.8-slim-buster
 
 RUN python -m pip install gunicorn flask numpy pandas requests joblib==0.11  ibm_watson_machine_learning==1.0.253 ibm-watson-openscale==3.0.24
 
-# Install Java (OpenJDK)
-RUN apt-get update && apt-get install -y openjdk-11-jdk
+# Install Java (OpenJDK) in a single layer and clean up to reduce image size
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jdk && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Define environment variable
