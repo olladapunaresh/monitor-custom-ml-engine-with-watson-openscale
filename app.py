@@ -45,7 +45,7 @@ DATA_SET_ID = None
 
 
 
-@app.route('/spaces/<space_id>/v1/deployments/<deployment_id>/online', methods=['POST'])
+@app.route('/v1/deployments/online', methods=['POST'])
 def wml_online(space_id, deployment_id):
     if not request.json:
         print("not json - reject")
@@ -81,44 +81,44 @@ def wml_online(space_id, deployment_id):
     return jsonify(scoring_response["predictions"][0])
 
 
-@app.route('/spaces/<space_id>/v1/deployments', methods=['GET'])
-def deployments(space_id):
-    # This API endpoint is optional.
-    # It should list all the deployed models in your custom environment.
-
-    # If deploy this app on IBM Code Engine, the hostname can be determined by:
-    if all(env in os.environ for env in ('CE_APP', 'CE_SUBDOMAIN', 'CE_DOMAIN')):
-        hostname = 'https://' + os.environ['CE_APP'] + '.' + os.environ['CE_SUBDOMAIN'] + '.' + os.environ['CE_DOMAIN']
-    else:
-    # If deploying on a VM, change the hostname to the VM's IP that OpenScale service instance can access
-        hostname = 'http://' + socket.gethostname()
-    return {
-        "count": 1,
-        "resources": [
-            {
-                "metadata": {
-                    "guid": "your_model_deployment_id",
-                    "created_at": "2022-10-14T17:31:58.350Z",
-                    "modified_at": "2022-10-14T17:31:58.350Z"
-                },
-                "entity": {
-                    "name": "openscale-german-credit",
-                    "description": "custom ml engine",
-                    "scoring_url": hostname + "/spaces/" + space_id + "/v1/deployments/your_model_deployment_id/online",
-                    "asset": {
-                        "guid": "your_model_id",
-                        "url": hostname + "/spaces/" + space_id + "/v1/deployments/your_model_deployment_id/online",
-                        "name": "openscale-german-credit"
-                    },
-                    "asset_properties": {
-                        "problem_type": "binary",
-                        "predicted_target_field": "prediction",
-                        "input_data_type": "structured",
-                    }
-                }
-            }
-        ]
-    }
+# @app.route('/spaces/<space_id>/v1/deployments', methods=['GET'])
+# def deployments(space_id):
+#     # This API endpoint is optional.
+#     # It should list all the deployed models in your custom environment.
+#
+#     # If deploy this app on IBM Code Engine, the hostname can be determined by:
+#     if all(env in os.environ for env in ('CE_APP', 'CE_SUBDOMAIN', 'CE_DOMAIN')):
+#         hostname = 'https://' + os.environ['CE_APP'] + '.' + os.environ['CE_SUBDOMAIN'] + '.' + os.environ['CE_DOMAIN']
+#     else:
+#     # If deploying on a VM, change the hostname to the VM's IP that OpenScale service instance can access
+#         hostname = 'http://' + socket.gethostname()
+#     return {
+#         "count": 1,
+#         "resources": [
+#             {
+#                 "metadata": {
+#                     "guid": "your_model_deployment_id",
+#                     "created_at": "2022-10-14T17:31:58.350Z",
+#                     "modified_at": "2022-10-14T17:31:58.350Z"
+#                 },
+#                 "entity": {
+#                     "name": "openscale-german-credit",
+#                     "description": "custom ml engine",
+#                     "scoring_url": hostname + "/spaces/" + space_id + "/v1/deployments/your_model_deployment_id/online",
+#                     "asset": {
+#                         "guid": "your_model_id",
+#                         "url": hostname + "/spaces/" + space_id + "/v1/deployments/your_model_deployment_id/online",
+#                         "name": "openscale-german-credit"
+#                     },
+#                     "asset_properties": {
+#                         "problem_type": "binary",
+#                         "predicted_target_field": "prediction",
+#                         "input_data_type": "structured",
+#                     }
+#                 }
+#             }
+#         ]
+#     }
 
 
 if __name__ == '__main__':
