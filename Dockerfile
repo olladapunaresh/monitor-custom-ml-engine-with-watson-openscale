@@ -1,22 +1,14 @@
-FROM python:3.10.8-slim-buster
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:11
 
-RUN python -m pip install gunicorn flask numpy pandas requests joblib==0.11  ibm_watson_machine_learning==1.0.253 ibm-watson-openscale==3.0.24
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# Install OpenJDK-8
-RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
-    apt-get install -y ant && \
-    apt-get clean;
+# Copy the Java source file into the container
+COPY Main.java .
 
+# Compile the Main.java file
+RUN javac -cp .:h2o-genmodel.jar main.java
 
-# Define environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
-ENV PATH $JAVA_HOME/bin:$PATH
-
-EXPOSE 8080
-
-WORKDIR /workspace
-
-COPY app.py /workspace
-
-CMD ["python", "app.py"]
+# Run the compiled Java program when the container launches
+CMD ["java","-cp",".:h2o-genmodel.jar","main"]
