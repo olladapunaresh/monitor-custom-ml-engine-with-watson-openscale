@@ -14,6 +14,8 @@ EXPOSE 8080
 
 WORKDIR /workspace
 
+COPY . /workspace
+
 COPY app.py /workspace
 
 CMD ["python", "app.py"]
