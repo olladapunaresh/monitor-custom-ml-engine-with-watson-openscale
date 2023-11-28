@@ -20,7 +20,7 @@ def wml_online():
 
 
     # Compile Java code
-    compile_process = subprocess.run(['javac', '-cp', '.:h2o-genmodel.jar', 'Main.java'], capture_output=True, text=True)
+    compile_process = subprocess.run(['javac', '-cp', '.:h2o-genmodel.jar', 'main.java'], capture_output=True, text=True)
     if compile_process.returncode != 0:
         # Compilation error
         return jsonify({'error': compile_process.stderr})
